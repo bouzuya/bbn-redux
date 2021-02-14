@@ -1,16 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import logo from "./logo.svg";
 import { Counter } from "./features/counter/Counter";
 import "./App.css";
 import { PostList } from "./features/posts/PostList";
+import { PostDetail } from "./features/postDetail/PostDetail";
 
 function App() {
+  const [date, setDate] = useState<string | null>(null);
   return (
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <Counter />
-        <PostList />
+        {date === null ? null : <PostDetail date={date} />}
+        <PostList onClickPost={(date) => setDate(date)} />
         <p>
           Edit <code>src/App.tsx</code> and save to reload.
         </p>
