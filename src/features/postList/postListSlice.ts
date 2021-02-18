@@ -22,8 +22,8 @@ export const fetchPosts = createAsyncThunk<Post[]>("fetchPosts", async () => {
   return response.json();
 });
 
-export const postsSlice = createSlice({
-  name: "posts",
+export const postListSlice = createSlice({
+  name: "postList",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
@@ -33,6 +33,6 @@ export const postsSlice = createSlice({
   },
 });
 
-export const selectPosts = (state: RootState): Post[] => state.posts.posts;
+export const selectPosts = (state: RootState): Post[] => state.postList.posts;
 
-export default postsSlice.reducer;
+export default postListSlice.reducer;

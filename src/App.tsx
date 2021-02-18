@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Counter } from "./features/counter/Counter";
 import "./App.css";
-import { PostList } from "./features/posts/PostList";
+import { PostList } from "./features/postList/PostList";
 import { PostDetail } from "./features/postDetail/PostDetail";
 
 function App() {

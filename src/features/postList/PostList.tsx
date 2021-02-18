@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchPosts, selectPosts } from "./postsSlice";
+import { fetchPosts, selectPosts } from "./postListSlice";
 
 interface PostListProps {
   onClickPost: (date: string) => void;
