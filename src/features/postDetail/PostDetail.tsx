@@ -23,7 +23,10 @@ export function PostDetail({ date }: PostDetailProps) {
             </time>
             <span className={styles.title}>{postDetail.title}</span>
           </header>
-          <div className={styles.body} dangerouslySetInnerHTML={{ __html: postDetail.html }} />
+          <div
+            className={styles.body}
+            dangerouslySetInnerHTML={{ __html: postDetail.html }}
+          />
         </article>
       )}
     </div>
