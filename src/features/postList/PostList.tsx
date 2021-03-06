@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchPosts, selectPosts } from "./postListSlice";
+import { fetchPostList, selectPostList } from "./postListSlice";
 
 interface PostListProps {
   onClickPost: (date: string) => void;
@@ -8,14 +8,14 @@ interface PostListProps {
 
 export function PostList({ onClickPost }: PostListProps) {
   const dispatch = useDispatch();
-  const posts = useSelector(selectPosts);
+  const postList = useSelector(selectPostList);
   useEffect(() => {
-    dispatch(fetchPosts());
+    dispatch(fetchPostList());
   }, [dispatch]);
   return (
     <div className="post-list">
       <ul>
-        {posts.map((post) => {
+        {postList.map((post) => {
           return (
             <li key={post.date} onClick={(_) => onClickPost(post.date)}>
               <time dateTime={post.date}>{post.date}</time>

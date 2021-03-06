@@ -1,9 +1,9 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import {
+  createAsyncThunk,
+  createEntityAdapter,
+  createSlice,
+} from "@reduxjs/toolkit";
 import { RootState } from "../../app/store";
-
-interface PostsState {
-  posts: Post[];
-}
 
 interface Post {
   date: string;
@@ -13,26 +13,34 @@ interface Post {
   title: string;
 }
 
-const initialState: PostsState = {
-  posts: [],
-};
-
-export const fetchPosts = createAsyncThunk<Post[]>("fetchPosts", async () => {
-  const response = await window.fetch("https://blog.bouzuya.net/posts.json");
-  return response.json();
+const postListAdapter = createEntityAdapter<Post>({
+  selectId: (post) => post.date,
+  sortComparer: (a, b) => b.date.localeCompare(a.date),
 });
+
+export const fetchPostList = createAsyncThunk<Post[]>(
+  "fetchPosts",
+  async () => {
+    const response = await window.fetch("https://blog.bouzuya.net/posts.json");
+    return response.json();
+  }
+);
 
 export const postListSlice = createSlice({
   name: "postList",
-  initialState,
+  initialState: postListAdapter.getInitialState(),
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(fetchPosts.fulfilled, (state, action) => {
-      state.posts = action.payload;
+    builder.addCase(fetchPostList.fulfilled, (state, action) => {
+      postListAdapter.setAll(state, action.payload);
     });
   },
 });
 
-export const selectPosts = (state: RootState): Post[] => state.postList.posts;
+const postListSelectors = postListAdapter.getSelectors<RootState>(
+  (state) => state.postList
+);
+
+export const selectPostList = postListSelectors.selectAll;
 
 export default postListSlice.reducer;

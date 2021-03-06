@@ -1,24 +1,25 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import {
+  createAsyncThunk,
+  createEntityAdapter,
+  createSlice,
+} from "@reduxjs/toolkit";
 import { RootState } from "../../app/store";
 
-interface PostDetailState {
-  postDetail: PostDetail | null;
-}
-
-interface PostDetail {
+export interface PostDetail {
   data: string;
   date: string;
   html: string;
+  idTitle: string;
   minutes: number;
   pubdate: string;
   tags: string[];
   title: string;
-  idTitle: string;
 }
 
-const initialState: PostDetailState = {
-  postDetail: null,
-};
+const postDetailAdapter = createEntityAdapter<PostDetail>({
+  selectId: (postDetail) => postDetail.date,
+  sortComparer: (a, b) => a.date.localeCompare(b.date),
+});
 
 export const fetchPostDetail = createAsyncThunk<PostDetail, string>(
   "fetchPostDetail",
@@ -35,22 +36,20 @@ export const fetchPostDetail = createAsyncThunk<PostDetail, string>(
 
 export const postsSlice = createSlice({
   name: "postDetail",
-  initialState,
+  initialState: postDetailAdapter.getInitialState(),
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(fetchPostDetail.fulfilled, (state, action) => {
-      state.postDetail = action.payload;
+      postDetailAdapter.upsertOne(state, action.payload);
     });
   },
 });
 
-export const selectPostDetail = (date: string) => (
-  state: RootState
-): PostDetail | null =>
-  state.postDetail.postDetail === null
-    ? null
-    : state.postDetail.postDetail.date === date
-    ? state.postDetail.postDetail
-    : null;
+const postDetailSelectors = postDetailAdapter.getSelectors<RootState>(
+  (state) => state.postDetail
+);
+
+export const selectPostDetail = (date: string) => (state: RootState) =>
+  postDetailSelectors.selectById(state, date);
 
 export default postsSlice.reducer;

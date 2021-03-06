@@ -8,17 +8,17 @@ interface PostDetailProps {
 
 export function PostDetail({ date }: PostDetailProps) {
   const dispatch = useDispatch();
-  const post = useSelector(selectPostDetail(date));
+  const postDetail = useSelector(selectPostDetail(date));
   useEffect(() => {
-    if (post === null) dispatch(fetchPostDetail(date));
-  }, [date, dispatch, post]);
+    if (postDetail === undefined) dispatch(fetchPostDetail(date));
+  }, [date, dispatch, postDetail]);
   return (
     <div className="post-detail">
-      {post === null ? null : (
+      {postDetail === undefined ? null : (
         <article>
-          <time dateTime={post.date}>{post.date}</time>
-          <span className="title">{post.title}</span>
-          <div dangerouslySetInnerHTML={{ __html: post.html }} />
+          <time dateTime={postDetail.date}>{postDetail.date}</time>
+          <span className="title">{postDetail.title}</span>
+          <div dangerouslySetInnerHTML={{ __html: postDetail.html }} />
         </article>
       )}
     </div>
