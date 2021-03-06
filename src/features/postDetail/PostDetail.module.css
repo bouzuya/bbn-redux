@@ -1,0 +1,72 @@
+.postDetailContainer {
+  flex: 6;
+  /* max-height: 100vw; */
+  height: 100vw;
+  overflow: scroll;
+}
+
+.postDetail {
+  color: rgba(0, 0, 0, 0.9);
+  display: block;
+  margin: 16px;
+  text-align: left;
+}
+
+.header {
+  margin-bottom: 36px;
+}
+
+.header:hover .title {
+  text-shadow: 2px 1px hsla(16, 84%, 16%, 0.1);
+}
+
+.date {
+  color: rgba(0, 0, 0, 0.7);
+  cursor: pointer;
+  display: block;
+  font-size: 90%;
+  margin: 8px 0;
+}
+
+.title {
+  color: hsla(224, 84%, 48%, 0.9);
+  cursor: pointer;
+  display: block;
+  font-size: 140%;
+  font-weight: bold;
+  margin: 0 16px;
+  text-decoration: underline;
+}
+
+.body {
+  line-height: 1.4;
+}
+
+.body hr {
+  border: 1px dashed rgba(0, 0, 0, 0.3);
+  width: 48px;
+}
+
+.body a {
+  color: hsla(224, 84%, 48%, 0.9);
+}
+
+.body a:visited {
+  color: hsla(256, 84%, 48%, 0.9);
+}
+
+.body a:hover {
+  text-shadow: 2px 1px hsla(16, 84%, 16%, 0.1);
+}
+
+.body a:active {
+  color: hsla(16, 84%, 48%, 0.9);
+}
+
+.body h1 {
+  font-size: 100%;
+}
+
+.body ul {
+  padding-left: 24px;
+}

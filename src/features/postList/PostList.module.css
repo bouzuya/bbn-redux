@@ -1,0 +1,38 @@
+.postListContainer {
+  flex: 4;
+  height: 100vw;
+  overflow: scroll;
+}
+
+.postList {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.post {
+  color: rgba(0, 0, 0, 0.9);
+  cursor: pointer;
+  display: block;
+  margin: 16px;
+  text-align: left;
+}
+
+.date {
+  color: rgba(0, 0, 0, 0.7);
+  display: block;
+  font-size: 90%;
+  margin: 8px 0;
+}
+
+.title {
+  color: hsla(224, 84%, 48%, 0.9);
+  display: block;
+  font-weight: bold;
+  margin: 0 16px;
+  text-decoration: underline;
+}
+
+.post:hover .title {
+  text-shadow: 2px 1px hsla(16, 84%, 16%, 0.1);
+}

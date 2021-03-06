@@ -15,7 +15,7 @@ export function Counter() {
   const [incrementAmount, setIncrementAmount] = useState("2");
 
   return (
-    <div>
+    <div className={styles.counter}>
       <div className={styles.row}>
         <button
           className={styles.button}
