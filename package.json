@@ -39,7 +39,7 @@
   },
   "private": true,
   "scripts": {
-    "build": "run-s 'build:prettier' 'build:react-scripts'",
+    "build": "run-s 'build:format' 'build:react-scripts'",
     "build:format": "prettier --check '{src,test}/**/*.{ts,tsx}'",
     "build:react-scripts": "react-scripts build",
     "eject": "react-scripts eject",
