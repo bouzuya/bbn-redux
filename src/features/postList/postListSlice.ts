@@ -3,7 +3,7 @@ import {
   createEntityAdapter,
   createSlice,
 } from "@reduxjs/toolkit";
-import { RootState } from "../../app/store";
+import type { RootState } from "../../app/store";
 
 interface Post {
   date: string;

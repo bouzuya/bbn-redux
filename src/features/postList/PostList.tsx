@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { fetchPostList, selectPostList } from "./postListSlice";
 import styles from "./PostList.module.css";
 
@@ -8,8 +8,8 @@ interface PostListProps {
 }
 
 export function PostList({ onClickPost }: PostListProps) {
-  const dispatch = useDispatch();
-  const postList = useSelector(selectPostList);
+  const dispatch = useAppDispatch();
+  const postList = useAppSelector(selectPostList);
   useEffect(() => {
     dispatch(fetchPostList());
   }, [dispatch]);

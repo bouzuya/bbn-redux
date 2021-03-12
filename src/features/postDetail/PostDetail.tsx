@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { fetchPostDetail, selectPostDetail } from "./postDetailSlice";
 import styles from "./PostDetail.module.css";
 
@@ -8,8 +8,8 @@ interface PostDetailProps {
 }
 
 export function PostDetail({ date }: PostDetailProps) {
-  const dispatch = useDispatch();
-  const postDetail = useSelector(selectPostDetail(date));
+  const dispatch = useAppDispatch();
+  const postDetail = useAppSelector(selectPostDetail(date));
   useEffect(() => {
     if (postDetail === undefined) dispatch(fetchPostDetail(date));
   }, [date, dispatch, postDetail]);
