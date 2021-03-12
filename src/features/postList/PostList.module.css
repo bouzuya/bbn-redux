@@ -2,6 +2,7 @@
   flex: 4;
   height: 100vw;
   overflow: scroll;
+  word-break: break-all;
 }
 
 .postList {
