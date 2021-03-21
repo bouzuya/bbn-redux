@@ -16,20 +16,21 @@ export function PostList({ onClickPost }: PostListProps) {
   return (
     <div className={styles.postListContainer}>
       <ul className={styles.postList}>
-        {postList.map((post) => {
-          return (
-            <li
+        {postList.map((post) => (
+          <li className={styles.postListItem} key={post.date}>
+            {/* Don't use <Link /> to avoid slowdown to redrawing from using Context. */}
+            <a
               className={styles.post}
-              key={post.date}
+              href={`#/${post.date}`}
               onClick={(_) => onClickPost(post.date)}
             >
               <time className={styles.date} dateTime={post.date}>
                 {post.date}
               </time>
               <span className={styles.title}>{post.title}</span>
-            </li>
-          );
-        })}
+            </a>
+          </li>
+        ))}
       </ul>
     </div>
   );
