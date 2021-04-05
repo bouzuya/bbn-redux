@@ -8,6 +8,7 @@ import {
   Switch,
   useHistory,
 } from "react-router-dom";
+import { Grid } from "@material-ui/core";
 
 function PostListWrapper(): JSX.Element {
   const history = useHistory();
@@ -16,8 +17,13 @@ function PostListWrapper(): JSX.Element {
 
 function App(): JSX.Element {
   return (
-    <Router>
-      <div className="App">
+    <Grid
+      alignItems="stretch"
+      container
+      direction="row-reverse"
+      justify="center"
+    >
+      <Router>
         <Switch>
           <Route
             path="/:date"
@@ -25,8 +31,8 @@ function App(): JSX.Element {
           />
         </Switch>
         <PostListWrapper />
-      </div>
-    </Router>
+      </Router>
+    </Grid>
   );
 }
 
