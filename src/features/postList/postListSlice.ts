@@ -5,7 +5,7 @@ import {
 } from "@reduxjs/toolkit";
 import type { RootState } from "../../app/store";
 
-interface Post {
+export interface Post {
   date: string;
   minutes: number;
   pubdate: string;
