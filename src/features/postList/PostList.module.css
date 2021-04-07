@@ -1,8 +1,5 @@
 .postListContainer {
-  flex: 4;
   height: 100vh;
-  overflow: scroll;
-  word-break: break-all;
 }
 
 .postList {

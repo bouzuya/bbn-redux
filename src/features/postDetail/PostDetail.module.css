@@ -1,7 +1,5 @@
 .postDetailContainer {
-  flex: 6;
-  height: 100vh;
-  overflow: scroll;
+  min-height: 100vh;
 }
 
 .postDetail {

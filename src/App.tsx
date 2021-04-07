@@ -7,15 +7,13 @@ import {
   Route,
   Switch,
   useHistory,
+  useRouteMatch,
 } from "react-router-dom";
-import { Grid } from "@material-ui/core";
+import { Grid, Hidden } from "@material-ui/core";
 
-function PostListWrapper(): JSX.Element {
+function PostPage(): JSX.Element {
   const history = useHistory();
-  return <PostList onClickPost={(date) => history.push(`/${date}`)} />;
-}
-
-function App(): JSX.Element {
+  const detailMatch = useRouteMatch<{ date: string }>("/:date");
   return (
     <Grid
       alignItems="stretch"
@@ -23,16 +21,33 @@ function App(): JSX.Element {
       direction="row-reverse"
       justify="center"
     >
-      <Router>
-        <Switch>
-          <Route
-            path="/:date"
-            render={({ match }) => <PostDetail date={match.params.date} />}
-          />
-        </Switch>
-        <PostListWrapper />
-      </Router>
+      <Hidden xsDown={detailMatch === null}>
+        <Grid item xs={12} sm={8}>
+          {detailMatch !== null ? (
+            <PostDetail date={detailMatch.params.date} />
+          ) : (
+            "post not selected"
+          )}
+        </Grid>
+      </Hidden>
+      <Hidden xsDown={detailMatch !== null}>
+        <Grid item xs={12} sm={4}>
+          <PostList onClickPost={(date) => history.push(`/${date}`)} />
+        </Grid>
+      </Hidden>
     </Grid>
+  );
+}
+
+function App(): JSX.Element {
+  return (
+    <Router>
+      <Switch>
+        <Route path="*">
+          <PostPage />
+        </Route>
+      </Switch>
+    </Router>
   );
 }
 
