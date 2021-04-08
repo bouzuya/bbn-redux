@@ -102,7 +102,7 @@ function PostPage(): JSX.Element {
                 <SearchIcon />
               </div>
               <InputBase
-                placeholder="Search…"
+                placeholder="日付・タイトルで検索"
                 classes={{
                   input: classes.inputInput,
                   root: classes.inputRoot,
@@ -126,7 +126,11 @@ function PostPage(): JSX.Element {
       >
         <Hidden xsDown={date === null}>
           <Grid item xs={12} sm={8}>
-            {date !== null ? <PostDetail date={date} /> : "post not selected"}
+            {date !== null ? (
+              <PostDetail date={date} />
+            ) : (
+              "記事を選択してください"
+            )}
           </Grid>
         </Hidden>
         <Hidden xsDown={date !== null}>
