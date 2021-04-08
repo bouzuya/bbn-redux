@@ -2,6 +2,7 @@ import React from "react";
 import "./App.css";
 import { PostList } from "./features/postList/PostList";
 import { PostDetail } from "./features/postDetail/PostDetail";
+import { selectPostDetail } from "./features/postDetail/postDetailSlice";
 import {
   HashRouter as Router,
   Route,
@@ -9,33 +10,65 @@ import {
   useHistory,
   useRouteMatch,
 } from "react-router-dom";
-import { Grid, Hidden } from "@material-ui/core";
+import { ArrowBack as ArrowBackIcon } from "@material-ui/icons";
+import {
+  AppBar,
+  Grid,
+  Hidden,
+  IconButton,
+  Toolbar,
+  Typography,
+  useMediaQuery,
+  useTheme,
+} from "@material-ui/core";
+import { useSelector } from "react-redux";
 
 function PostPage(): JSX.Element {
   const history = useHistory();
-  const detailMatch = useRouteMatch<{ date: string }>("/:date");
+  const date = useRouteMatch<{ date: string }>("/:date")?.params?.date ?? null;
+  const theme = useTheme();
+  const isXs = useMediaQuery(theme.breakpoints.down("xs"));
+  const detail = useSelector(selectPostDetail(date ?? ""));
+  const title =
+    (date !== null ? date : "blog.bouzuya.net") +
+    (!isXs && detail !== undefined ? ` ${detail.title}` : "");
   return (
-    <Grid
-      alignItems="stretch"
-      container
-      direction="row-reverse"
-      justify="center"
-    >
-      <Hidden xsDown={detailMatch === null}>
-        <Grid item xs={12} sm={8}>
-          {detailMatch !== null ? (
-            <PostDetail date={detailMatch.params.date} />
-          ) : (
-            "post not selected"
-          )}
-        </Grid>
-      </Hidden>
-      <Hidden xsDown={detailMatch !== null}>
-        <Grid item xs={12} sm={4}>
-          <PostList onClickPost={(date) => history.push(`/${date}`)} />
-        </Grid>
-      </Hidden>
-    </Grid>
+    <>
+      <AppBar>
+        <Toolbar>
+          {date !== null ? (
+            <IconButton
+              edge="start"
+              color="inherit"
+              onClick={() => history.goBack()}
+            >
+              <ArrowBackIcon />
+            </IconButton>
+          ) : null}
+          <Typography variant="h6">{title}</Typography>
+        </Toolbar>
+      </AppBar>
+      <Toolbar />
+
+      <Grid
+        alignItems="stretch"
+        container
+        direction="row-reverse"
+        justify="center"
+        style={{ height: `calc(100% - ${theme.mixins.toolbar.minHeight}px)` }}
+      >
+        <Hidden xsDown={date === null}>
+          <Grid item xs={12} sm={8}>
+            {date !== null ? <PostDetail date={date} /> : "post not selected"}
+          </Grid>
+        </Hidden>
+        <Hidden xsDown={date !== null}>
+          <Grid item xs={12} sm={4}>
+            <PostList onClickPost={(date) => history.push(`/${date}`)} />
+          </Grid>
+        </Hidden>
+      </Grid>
+    </>
   );
 }
 
