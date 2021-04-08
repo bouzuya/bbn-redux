@@ -16,6 +16,7 @@ import {
 } from "@material-ui/icons";
 import {
   AppBar,
+  createMuiTheme,
   createStyles,
   fade,
   Grid,
@@ -24,6 +25,7 @@ import {
   InputBase,
   makeStyles,
   Theme,
+  ThemeProvider,
   Toolbar,
   Typography,
   useMediaQuery,
@@ -147,14 +149,23 @@ function PostPage(): JSX.Element {
 }
 
 function App(): JSX.Element {
+  const theme = createMuiTheme({
+    palette: {
+      primary: {
+        main: "#4e6a41",
+      },
+    },
+  });
   return (
-    <Router>
-      <Switch>
-        <Route path="*">
-          <PostPage />
-        </Route>
-      </Switch>
-    </Router>
+    <ThemeProvider theme={theme}>
+      <Router>
+        <Switch>
+          <Route path="*">
+            <PostPage />
+          </Route>
+        </Switch>
+      </Router>
+    </ThemeProvider>
   );
 }
 
