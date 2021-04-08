@@ -9,6 +9,7 @@ import styles from "./PostList.module.css";
 
 interface PostListProps {
   onClickPost: (date: string) => void;
+  query: string;
 }
 
 function Row({ data, index, style }: ListChildComponentProps & { data: Post }) {
@@ -26,9 +27,15 @@ function Row({ data, index, style }: ListChildComponentProps & { data: Post }) {
   );
 }
 
-export function PostList(_: PostListProps) {
+export function PostList(props: PostListProps) {
+  const { query } = props;
   const dispatch = useAppDispatch();
   const postList = useAppSelector(selectPostList);
+  const filtered = postList.filter((p) =>
+    query
+      .split(/\s/)
+      .every((q) => p.title.indexOf(q) !== -1 || p.date.indexOf(q) !== -1)
+  );
   useEffect(() => {
     dispatch(fetchPostList());
   }, [dispatch]);
@@ -38,8 +45,8 @@ export function PostList(_: PostListProps) {
         {({ height, width }) => (
           <FixedSizeList
             height={height}
-            itemCount={postList.length}
-            itemData={postList}
+            itemCount={filtered.length}
+            itemData={filtered}
             itemSize={72}
             width={width}
           >
